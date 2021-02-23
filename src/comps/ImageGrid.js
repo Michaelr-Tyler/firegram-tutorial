@@ -1,5 +1,6 @@
 import React from 'react';
 import useFirestore from '../hooks/useFirestore';
+import { motion } from 'framer-motion';
 
 
 
@@ -10,10 +11,15 @@ const { docs } = useFirestore('images')
     <div className="img-grid">
       {docs && docs.map((d)=> {
         return (
-          <div className="img-wrap" key={d.id}
+          <motion.div className="img-wrap" key={d.id}
+          layout
+          whileHover={{ opacity:1 }}
           onClick={()=> setSelectedImage(d.url)}>
-            <img src={d.url} alt={'uploaded image'} />
-          </div>
+            <motion.img  src={d.url} alt={'uploaded image'} 
+            initial={{opacity:0}} 
+            animate={{opacity: 1}}
+            transition={{delay:1}} />
+          </motion.div>
         )
       })}
     </div>
